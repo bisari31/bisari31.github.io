@@ -17,9 +17,8 @@ const nextConfig = {
       },
     ];
   },
-  images: {
-    domains: ['github.com'],
-  },
+  output: 'export',
+  images: { unoptimized: true, domains: ['github.com'] },
   swcMinify: false,
 };
 
