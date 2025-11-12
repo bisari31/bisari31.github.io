@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withContentlayer } = require('next-contentlayer');
 
 const nextConfig = {
@@ -9,16 +8,13 @@ const nextConfig = {
     });
     return config;
   },
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-    ];
-  },
   output: 'export',
-  images: { unoptimized: true, domains: ['github.com'] },
+  assetPrefix:
+    process.env.NODE_ENV === 'production'
+      ? 'https://bisari31.github.io'
+      : undefined,
+  images: { unoptimized: true },
+  // images: { unoptimized: true, domains: ['github.com'] },
   swcMinify: false,
 };
 

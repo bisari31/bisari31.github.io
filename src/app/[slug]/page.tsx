@@ -1,5 +1,5 @@
 import Utterances from 'app/[slug]/utterances';
-import { title } from 'constants/metadata';
+import { SITE_URL, title } from 'constants/metadata';
 import { format, parseISO } from 'date-fns';
 import { latestPost } from 'lib/contentlayer';
 import Image from 'next/image';
@@ -28,26 +28,26 @@ export const generateMetadata = ({
   const decodedSlug = decodeURIComponent(slug);
   const currentPost = latestPost.find((post: Post) => post.url === decodedSlug);
   return {
+    metadataBase: new URL(SITE_URL),
     title: `${currentPost?.title} - ${title}`,
     description: currentPost?.description,
     openGraph: {
       title: `${currentPost?.title} - ${title}`,
       description: currentPost?.description,
-      url: currentPost?.url,
       locale: 'ko_KR',
       type: 'website',
-      images: [
-        {
-          url: currentPost?.thumbnail,
-          width: 800,
-          height: 600,
-        },
-        {
-          url: currentPost?.thumbnail,
-          width: 1800,
-          height: 1600,
-        },
-      ],
+      // images: [
+      //   {
+      //     url: currentPost?.thumbnail,
+      //     width: 800,
+      //     height: 600,
+      //   },
+      //   {
+      //     url: currentPost?.thumbnail,
+      //     width: 1800,
+      //     height: 1600,
+      //   },
+      // ],
     },
   };
 };

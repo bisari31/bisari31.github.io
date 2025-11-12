@@ -1,24 +1,24 @@
 import './globals.css';
 
 import Header from 'app/header';
-import { description, title } from 'constants/metadata';
+import { description, SITE_URL, title } from 'constants/metadata';
 import { pretendard } from 'lib/font';
 import { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
   title,
+  metadataBase: new URL(SITE_URL),
   description,
   verification: {
-    google: 'e-TNPhd8w4G89P7qHvpbNUMOzmwlO8jX-6zAin2jbK8',
+    google: 'Hpkw_Y7h8SXfmKT6NXtczhTN2cYscJYKtZMYv2xNhc8',
     other: {
-      'naver-site-verification': 'bd622f8e509823744a83f140397290ee8c2d4c23',
+      'naver-site-verification': '06f72a0a0230a44ac409e272e8c6c6932c7a1a3b',
     },
   },
   openGraph: {
     title,
     description,
-    url: process.env.SITE_URL,
     locale: 'ko_KR',
     type: 'website',
     images: [

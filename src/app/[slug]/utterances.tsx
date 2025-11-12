@@ -11,7 +11,7 @@ export default function Utterances() {
       const script = document.createElement('script');
       script.src = 'https://utteranc.es/client.js';
       script.async = true;
-      script.setAttribute('repo', 'bisari31/blog');
+      script.setAttribute('repo', 'bisari31/bisari31.github.io');
       script.setAttribute('issue-term', 'title');
       script.setAttribute('label', 'comments');
       script.setAttribute('theme', 'github-dark');
