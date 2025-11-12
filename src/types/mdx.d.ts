@@ -2,8 +2,6 @@ interface Post {
   title: string;
   date: date;
   description: string;
-  thumbnail?: string;
-  keywords?: string[];
   body: { code: string };
   _id: string;
   _raw: {

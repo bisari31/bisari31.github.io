@@ -19,13 +19,6 @@ const Post = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
-    thumbnail: {
-      type: 'string',
-    },
-    keywords: {
-      type: 'list',
-      of: { type: 'string' },
-    },
   },
   computedFields: {
     url: {
