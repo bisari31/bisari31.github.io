@@ -1,0 +1,102 @@
+---
+title: React 19.2 useEffectEvent
+date: 2026-02-10
+description: 2025년 10월 1일 React 19.2가 릴리즈됐다. 이 버전에서 새로운 훅이 하나 추가되었는데 useEffectEvent라는 훅이다. 오래된 클로저를 설명하는 대표적인 예시 코드다. `useEffect` 콜백에서 외부 상태 `count`를 참조하는데 버튼을 아무리 클릭해도 로그에는 0이 출력된다. 클로저는 생성 당시 외부 참조 변수를 기억하고 있는데 의존성 배열이 빈 배열이므로 콜백 함수는 단 한 번 생성된다. 그렇기에 항상 0을 기억할 수밖에 없다. `useEffect`의 의존성 배열에 `count`를 넣어주어야 오래된 클로저 이슈를 해결할 수 있다.
+---
+
+2025년 10월 1일 React 19.2가 릴리즈됐다. 이 버전에서 새로운 훅이 하나 추가되었는데 useEffectEvent라는 훅이다.
+
+## 오래된 클로저
+
+```tsx
+export default function WatchCount() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(`Count is: ${count}`);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      {count}
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+    </div>
+  );
+}
+```
+
+오래된 클로저를 설명하는 대표적인 예시 코드다. `useEffect` 콜백에서 외부 상태 `count`를 참조하는데 버튼을 아무리 클릭해도 로그에는 0이 출력된다. 클로저는 생성 당시 외부 참조 변수를 기억하고 있는데 의존성 배열이 빈 배열이므로 콜백 함수는 단 한 번 생성된다. 그렇기에 항상 0을 기억할 수밖에 없다.
+`useEffect`의 의존성 배열에 `count`를 넣어주어야 오래된 클로저 이슈를 해결할 수 있다.
+
+### 다른 예제
+
+```tsx
+export default function Component() {
+  const [userName, setUserName] = useState('홍길동');
+
+  useEffect(() => {
+    let timer = 0;
+    const interval = setInterval(() => {
+      console.log(`${userName} 로그인 경과 시간: ${++timer}초`);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+      />
+    </div>
+  );
+}
+```
+
+`userName`을 변경해도 로그에는 처음 지정된 "홍길동"만 출력된다. 이 경우에는 의존성 배열을 추가하면 로그인 경과 시간이 초기화되므로 `useRef`를 사용한다.
+
+```tsx
+const usernameRef = useRef(userName);
+usernameRef.current = userName;
+
+useEffect(() => {
+  let timer = 0;
+  const interval = setInterval(() => {
+    console.log(`${usernameRef.current} 로그인 경과 시간: ${++timer}초`);
+  }, 1000);
+  return () => clearInterval(interval);
+}, []);
+```
+
+## useEffectEvent
+
+```tsx
+export default function Component() {
+  const [userName, setUserName] = useState("홍길동");
+  const getName = useEffectEvent(() => userName);
+
+  useEffect(() => {
+    let timer = 0;
+    const interval = setInterval(() => {
+      console.log(`${getName()} 로그인 경과 시간: ${++timer}초`);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+```
+
+`useEffectEvent`를 사용해 로직을 분리했다. 분리된 함수는 실행될 때마다 항상 최신의 props와 state 값을 참조한다. 이를 통해 오래된 클로저 문제를 해결할 수 있다.
+이처럼 `useEffectEvent`를 사용하면 의존성 배열에서 상태에 대한 의존성을 제거할 수 있으며 보다 안전한 Effect를 사용할 수 있다.
+
+### 주의 사항
+
+- `useEffectEvent`는 컴포넌트 최상위 레벨에서 호출해야 하며, Effect 내부에서 사용되어야 한다.
+
+### 참조
+
+- [react.dev](https://react.dev/reference/react/useEffectEvent)
+- [React has finally solved its biggest problem: The joys of useEffectEvent](https://blog.logrocket.com/react-has-finally-solved-its-biggest-problem-useeffectevent/)
