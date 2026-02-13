@@ -14,6 +14,8 @@ type PostsResult = {
   currentPost?: Post;
 };
 
+export const dynamicParams = false;
+
 export const generateStaticParams = async () =>
   latestPosts.map((post: Post) => {
     return {
