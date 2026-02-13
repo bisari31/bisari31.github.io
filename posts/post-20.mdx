@@ -4,7 +4,7 @@ date: 2024-08-05
 description: ref 새롭게 제어하는 방법
 ---
 
-부모 컴포넌트에서 자식 컴포넌트 HTML 요소를 제어하려면 ref를 prop(forwardRef)으로 자식 컴포넌트에게 넘겨주어야 합니다.
+부모 컴포넌트에서 자식 컴포넌트 HTML 요소를 제어하려면 ref를 prop(forwardRef)으로 자식 컴포넌트에게 넘겨주어야 한다.
 
 ```tsx
 type MyInputProps = ComponentPropsWithoutRef<'input'>;
@@ -40,8 +40,8 @@ export default function ParentComponent() {
 
 ### 기본적인 사용 방법
 
-부모 컴포넌트에서 버튼을 클릭하면 handleClick 이벤트 함수가 실행되어 콘솔 로그에는 `<input/>` 요소가 찍히게 됩니다.  
-해당 요소 대신 사용자 지정 메서드를 노출시켜 로직을 커스텀할 수 있는데, 이때 사용하는 훅이 바로 useImperativeHandle 입니다. 자식 요소에서 useImperativeHandle를 사용하여 전달받은 ref를 첫 번째 인자로 넣으면 버튼을 클릭했을 때 이전과 다르게 빈 객체가 찍히게 됩니다.
+부모 컴포넌트에서 버튼을 클릭하면 handleClick 이벤트 함수가 실행되어 콘솔 로그에는 `<input/>` 요소가 찍히게 된다.  
+해당 요소 대신 사용자 지정 메서드를 노출시켜 로직을 커스텀할 수 있는데 이때 사용하는 훅이 바로 useImperativeHandle 이다. 자식 요소에서 useImperativeHandle를 사용하여 전달받은 ref를 첫 번째 인자로 넣으면 버튼을 클릭했을 때 이전과 다르게 빈 객체가 찍히게 된다.
 
 ```tsx
 const MyInput = forwardRef<MyInputRef, MyInputProps>(
@@ -63,8 +63,8 @@ export default function ParentComponent() {
 }
 ```
 
-이제 useImperativeHandle 활용하여 focus 메서드 만을 노출시키고자 합니다.
-MyInputRef의 타입을 다음과 같이 변경하여 자식과 부모 모두 ref 타입을 변경해 주었습니다.
+이제 useImperativeHandle 활용하여 focus 메서드 만을 노출시키고자 한다.
+MyInputRef의 타입을 다음과 같이 변경하여 자식과 부모 모두 ref 타입을 변경해 주었다.
 
 ```tsx
 type MyInputRef = {
@@ -79,12 +79,12 @@ export default function ParentComponent() {
 }
 ```
 
-ref 참조는 다음과 같이 focus만을 추론하게 됩니다.
+ref 참조는 다음과 같이 focus만을 추론하게 된다.
 
 ![](/imgs/posts/20/2024-08-06-2.22.11.png)
 
-다음으로는 자식 컴포넌트에서 useImperativeHandle 콜백 함수의 반환 값을 수정하고,
-ref를 새로 추가하여 참조하고자 하는 dom에 연결해 주어야 합니다.
+다음으로는 자식 컴포넌트에서 useImperativeHandle 콜백 함수의 반환 값을 수정하고
+ref를 새로 추가하여 참조하고자 하는 dom에 연결해 주어야 한다.
 
 ```tsx
 const MyInput = forwardRef<MyInputRef, MyInputProps>(
@@ -104,12 +104,12 @@ const MyInput = forwardRef<MyInputRef, MyInputProps>(
 );
 ```
 
-이제 input 요소의 권한이 없어지고, focus 메서드를 호출할 수 있습니다.
+이제 input 요소의 권한이 없어지고 focus 메서드를 호출할 수 있다.
 
-### 그렇다면 useImperativeHandle 언제 활용할 수 있을까요?
+### 그렇다면 useImperativeHandle 언제 활용할 수 있을까?
 
-부모가 자식 컴포넌트의 두 개 이상의 DOM을 조작하는 경우 유용하게 사용할 수 있습니다.
-focusAndScroll와 같이 메서드 이름은 DOM 메서드와 일치할 필요가 없습니다. 또한 자식 컴포넌트는 내부 상태나 로직을 관리하면서 부모와 결합을 낮출 수 있습니다.
+부모가 자식 컴포넌트의 두 개 이상의 DOM을 조작하는 경우 유용하게 사용할 수 있다.
+focusAndScroll와 같이 메서드 이름은 DOM 메서드와 일치할 필요가 없다. 또한 자식 컴포넌트는 내부 상태나 로직을 관리하면서 부모와 결합을 낮출 수 있다.
 
 ```tsx
 type MyInputProps = ComponentPropsWithoutRef<'input'>;
@@ -171,7 +171,7 @@ export default function ParentComponent() {
 
 ### ref를 과도하게 사용하지 마세요.
 
-공식 문서에서는 ref를 props로 표현할 수 없는 필수적인 행동(특정 노드로 스크롤 하기, 노드에 초점 맞추기, 애니메이션 촉발하기, 텍스트 선택하기 등)에서만 사용해야 한다고 합니다.
+공식 문서에서는 ref를 props로 표현할 수 없는 필수적인 행동(특정 노드로 스크롤 하기, 노드에 초점 맞추기, 애니메이션 촉발하기, 텍스트 선택하기 등)에서만 사용해야 한다고 한다.
 
 ### 참조
 

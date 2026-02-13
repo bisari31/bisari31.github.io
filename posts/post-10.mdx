@@ -6,8 +6,8 @@ description: 리덕스 공식문서로 RTK 배우기
 
 ![redux](/imgs/posts/11/redux.png)
 
-본격적으로 redux toolkit을 이용하여 간단한 sns 앱을 만들어보겠습니다.  
-redux와 redux toolkit을 먼저 설치합니다. react와 typescript를 사용했으며 css는 라이브러리는 tailwind를 사용했습니다.
+본격적으로 redux toolkit을 이용하여 간단한 sns 앱을 만들어보자.  
+redux와 redux toolkit을 먼저 설치한다. react와 typescript를 사용했으며 css는 라이브러리는 tailwind를 사용했다.
 
 ```
 npm i @reduxjs/toolkit react-redux
@@ -15,7 +15,7 @@ npm i @reduxjs/toolkit react-redux
 
 ## PostsReducer
 
-먼저 `features/postsSlice.ts`를 만들어 slice를 생성합니다. 또한 `initialState`를 생성하여 더미 데이터를 추가합니다. `reducers`는 아직 비어있는 상태입니다.
+먼저 `features/postsSlice.ts`를 만들어 slice를 생성한다. 또한 `initialState`를 생성하여 더미 데이터를 추가한다. `reducers`는 아직 비어있는 상태이다.
 
 ```ts
 // features/postsSlice.ts
@@ -46,7 +46,7 @@ const postsSlice = createSlice({
 export default postsSlice.reducer;
 ```
 
-`app/store.ts`에서 `configureStore`를 이용해 스토어를 생성한 후에 `postsSlice`를 posts 리듀서에 추가합니다.
+`app/store.ts`에서 `configureStore`를 이용해 스토어를 생성한 후에 `postsSlice`를 posts 리듀서에 추가한다.
 
 ```ts
 // app/store.ts
@@ -57,7 +57,7 @@ export const store = configureStore({
   reducer: { posts: postsSlice },
 });
 
-// store에서 상태와 dispatch 타입을 가져와 커스텀 훅 `withTypes`에 전달합니다.
+// store에서 상태와 dispatch 타입을 가져와 커스텀 훅 `withTypes`에 전달한다.
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 ```
@@ -71,15 +71,15 @@ export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
 ```
 
-이제 `App` 컴포넌트를 provider로 감싼 후에 store를 전달하면 브라우저에서 Redux DevTools Extension을 통해 posts 상태를 확인할 수 있습니다.
+이제 `App` 컴포넌트를 provider로 감싼 후에 store를 전달하면 브라우저에서 Redux DevTools Extension을 통해 posts 상태를 확인할 수 있다.
 
 ![](/imgs/posts/10/aed2382c-6566-4c93-b33a-e73ebd79f0bb.png)
 
-지금까지 렌더링 화면은 다음과 같습니다.
+지금까지 렌더링 화면은 다음과 같다.
 
 ![](/imgs/posts/10/7dd36e16-4d77-4397-9251-9edd095831d2.png)
 
-게시글을 등록하기 위해서는 postsSlice에서 게시글 등록 액션을 추가해야 합니다. postAdded 함수는 state와 action 두 개의 매개변수를 받고 `action.payload`에는 생성할 post의 정보가 전달됩니다. `createSlice` 안에서 push를 사용하여 불변성을 지키지 않아도 되는 이유는 내부적으로 immer 라이브러리를 사용하여 안전하게 불변성을 지키기 때문입니다.
+게시글을 등록하기 위해서는 postsSlice에서 게시글 등록 액션을 추가해야 한다. postAdded 함수는 state와 action 두 개의 매개변수를 받고 `action.payload`에는 생성할 post의 정보가 전달된다. `createSlice` 안에서 push를 사용하여 불변성을 지키지 않아도 되는 이유는 내부적으로 immer 라이브러리를 사용하여 안전하게 불변성을 지키기 때문이다.
 
 ```ts {7-9, 13}
 // features/postsSlice.ts
@@ -97,7 +97,7 @@ const postsSlice = createSlice({
 export const { postAdded } = postsSlice.actions;
 ```
 
-`postAdded` 액션을 export 하여 외부 컴포넌트에서 사용할 수 있게 합니다. 이제 `PostForm` 컴포넌트로 돌아가 이벤트 핸들러에 `postAdded` 액션을 디스패치하는 코드를 추가시킵니다.
+`postAdded` 액션을 export 하여 외부 컴포넌트에서 사용할 수 있게 한다. 이제 `PostForm` 컴포넌트로 돌아가 이벤트 핸들러에 `postAdded` 액션을 디스패치하는 코드를 추가한다.
 
 ### nanoid
 
@@ -121,13 +121,13 @@ export default function PostForm() {
 }
 ```
 
-데이터베이스는 id 값이 자동으로 증가되지만, 현재는 로컬 상태이므로 id 값을 넣어주어야 합니다. redux toolkit의 nanoid는 유니크한 값을 생성하기 때문에 nanoid를 사용하여 id 값을 추가하였습니다.
+데이터베이스는 id 값이 자동으로 증가되지만 현재는 로컬 상태이므로 id 값을 넣어주어야 한다. redux toolkit의 nanoid는 유니크한 값을 생성하기 때문에 nanoid를 사용하여 id 값을 추가하였다.
 
 ![](/imgs/posts/10/a5b1cfe8-3d8b-45b2-b75a-407534a8b29f.png)
 
-submit하면 `posts/postAdded` 액션이 정상적으로 디스패치되는 걸 확인할 수 있습니다.
+submit하면 `posts/postAdded` 액션이 정상적으로 디스패치되는 걸 확인할 수 있다.
 
-아래 코드는 `SinglePostPage` 컴포넌트를 생성하고 `useParams`를 이용해 postId를 받고, `useAppSelector`에서 `Array.find`를 이용하여 postId와 일치하는 post를 전달받는 예시입니다. `useAppSelector`는 반환하는 참조의 값이 변경될 때마다 컴포넌트가 다시 렌더링 됩니다.
+아래 코드는 `SinglePostPage` 컴포넌트를 생성하고 `useParams`를 이용해 postId를 받고 `useAppSelector`에서 `Array.find`를 이용하여 postId와 일치하는 post를 전달받는 예시이다. `useAppSelector`는 반환하는 참조의 값이 변경될 때마다 컴포넌트가 다시 렌더링 된다.
 
 ```tsx
 import { useParams } from 'react-router-dom';
@@ -157,7 +157,7 @@ export default function SinglePostPage() {
 }
 ```
 
-이제 `postUpdated` 리듀서 함수를 생성하겠습니다.
+이제 `postUpdated` 리듀서 함수를 생성한다.
 
 ```ts
 // features/postsSlice.ts
@@ -180,11 +180,11 @@ const postsSlice = createSlice({
 });
 ```
 
-`action.payload`에서 post 정보를 받아와 일치하는 포스트를 찾아 수정하는 코드입니다.
+`action.payload`에서 post 정보를 받아와 일치하는 포스트를 찾아 수정하는 코드다.
 
 ### prepare
 
-현재 `PostForm` 컴포넌트에서는 디스패치 전에 nanoid를 이용하여 id를 생성하고 `postAdded` 액션을 디스패치 하고 있습니다. 만약 여러 개의 다른 컴포넌트에서도 동일한 액션을 디스패치하거나 payload의 로직이 복잡하다면 반복되는 코드의 양이 많아 좋지 못합니다. `prepare`를 이용하면 이러한 문제를 해결할 수 있습니다.
+현재 `PostForm` 컴포넌트에서는 디스패치 전에 nanoid를 이용하여 id를 생성하고 `postAdded` 액션을 디스패치 하고 있다. 만약 여러 개의 다른 컴포넌트에서도 동일한 액션을 디스패치하거나 payload의 로직이 복잡하다면 반복되는 코드의 양이 많아 좋지 못하다. `prepare`를 이용하면 이러한 문제를 해결할 수 있다.
 
 ```ts {5-18}
 const postsSlice = createSlice({
@@ -210,7 +210,7 @@ const postsSlice = createSlice({
 });
 ```
 
-`prepare`를 사용하면 store에 `action.payload`가 전달되기 전에(미들웨어와 같은) 추가 작업을 진행할 수 있습니다.
+`prepare`를 사용하면 store에 `action.payload`가 전달되기 전에(미들웨어와 같은) 추가 작업을 진행할 수 있다.
 
 ```tsx
 // components/posts/PostForm.tsx
@@ -221,11 +221,11 @@ const handlePostSave = (e: React.FormEvent) => {
 };
 ```
 
-이제 `postAdded` 액션 함수는 2개의 인수(title,content)를 받습는다.
+이제 `postAdded` 액션 함수는 2개의 인수(title,content)를 받는다.
 
 ### UsersReducer
 
-usersSlice를 생성 후 스토어에 추가합니다.
+usersSlice를 생성 후 스토어에 추가한다.
 
 ```ts
 // features/usersSlice.ts
@@ -266,7 +266,7 @@ export const store = configureStore({
 });
 ```
 
-스토어에 유저 상태가 추가되었으므로 포스트를 등록할 때 유저를 선택할 수 있도록 `postAdded` 리듀서에 userId를 추가합니다. `PostForm` 컴포넌트에도 userId를 선택할 수 있는 양식을 추가합니다. 추가로 포스트 작성일을 확인하기 위해 prepare 함수에 date 코드를 추가 작성하였습니다.
+스토어에 유저 상태가 추가되었으므로 포스트를 등록할 때 유저를 선택할 수 있도록 `postAdded` 리듀서에 userId를 추가한다. `PostForm` 컴포넌트에도 userId를 선택할 수 있는 양식을 추가한다. 추가로 포스트 작성일을 확인하기 위해 prepare 함수에 date 코드를 추가 작성하였다.
 
 ```ts {9,13,16}
 const postsSlice = createSlice({
@@ -294,7 +294,7 @@ const postsSlice = createSlice({
 });
 ```
 
-사용자가 포스트에 이모티콘을 추가할 수 있도록 `ReactionButtons` 컴포넌트를 만듭니다. reactionEmoji 객체는 키와 이모지로 구성되어 있는데 `Object.entries` 메서드를 이용하여 배열로 변경하고 map 반복문을 돌려 button을 생성하였습니다. 버튼을 클릭하면 `reactionAdded` 액션을 디스패치하게 되는데 이때 해당 post를 찾기 위해 id 값과 emoji count 증가를 위해 emoji name을 넘겨줍니다.
+사용자가 포스트에 이모티콘을 추가할 수 있도록 `ReactionButtons` 컴포넌트를 만든다. reactionEmoji 객체는 키와 이모지로 구성되어 있는데 `Object.entries` 메서드를 이용하여 배열로 변경하고 map 반복문을 돌려 button을 생성하였다. 버튼을 클릭하면 `reactionAdded` 액션을 디스패치하게 되는데 이때 해당 post를 찾기 위해 id 값과 emoji count 증가를 위해 emoji name을 넘겨준다.
 
 ```tsx
 import { reactionAdded } from 'features/postsSlice';
@@ -332,7 +332,7 @@ export default function ReactionButtons({ post }: { post: Post }) {
 }
 ```
 
-마지막으로 `reactions` 객체를 추가하여 더미 데이터의 값과 prepare 함수에 각각 추가합니다. `reactionAdded` 액션을 만들어 payload는 id와 key를 받고 해당 post를 찾아 값을 변경하도록 코드를 작성합니다.
+마지막으로 `reactions` 객체를 추가하여 더미 데이터의 값과 prepare 함수에 각각 추가한다. `reactionAdded` 액션을 만들어 payload는 id와 key를 받고 해당 post를 찾아 값을 변경하도록 코드를 작성한다.
 
 ```ts {2-8,19,28,48,53-59}
 // features/postsSlice.ts
