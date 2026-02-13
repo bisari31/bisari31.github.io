@@ -1,7 +1,7 @@
 import Utterances from 'app/[slug]/utterances';
 import { SITE_URL, title } from 'constants/metadata';
 import { format, parseISO } from 'date-fns';
-import { latestPost } from 'lib/contentlayer';
+import { latestPosts } from 'lib/contentlayer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -14,7 +14,7 @@ type PostsResult = {
 };
 
 export const generateStaticParams = async () =>
-  latestPost.map((post: Post) => {
+  latestPosts.map((post: Post) => {
     return {
       slug: post.url,
     };
@@ -26,7 +26,9 @@ export const generateMetadata = ({
   params: { slug: string };
 }) => {
   const decodedSlug = decodeURIComponent(slug);
-  const currentPost = latestPost.find((post: Post) => post.url === decodedSlug);
+  const currentPost = latestPosts.find(
+    (post: Post) => post.url === decodedSlug,
+  );
   return {
     metadataBase: new URL(SITE_URL),
     title: `${currentPost?.title} - ${title}`,
@@ -59,7 +61,7 @@ export default function page({
 }) {
   const decodedSlug = decodeURIComponent(slug);
 
-  const { currentPost, nextPost, previousPost } = latestPost.reduce(
+  const { currentPost, nextPost, previousPost } = latestPosts.reduce(
     (acc: PostsResult, cur, idx, src) => {
       if (cur.url === decodedSlug) {
         acc.currentPost = cur;

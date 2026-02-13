@@ -1,7 +1,5 @@
 import { allPosts } from 'contentlayer/generated';
 
-export const latestPost = allPosts.sort((a, b) => {
-  return b._raw.flattenedPath
-    .split('-')[1]
-    .localeCompare(a._raw.flattenedPath.split('-')[1]);
+export const latestPosts = [...allPosts].sort((a, b) => {
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
 });
