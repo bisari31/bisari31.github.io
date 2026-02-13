@@ -23,6 +23,7 @@ const Post = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
+    thumbnail: { type: 'string', required: true },
   },
   // computedFields: {
   //   url: {

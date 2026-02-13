@@ -50,6 +50,14 @@ export const generateMetadata = ({
       locale: 'ko_KR',
       type: 'article',
       publishedTime: currentPost?.date,
+      images: [
+        {
+          url: currentPost?.thumbnail ?? '/imgs/og.jpg',
+          width: 1200,
+          height: 630,
+          alt: currentPost?.title,
+        },
+      ],
     },
   };
 };

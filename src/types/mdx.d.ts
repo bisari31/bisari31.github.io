@@ -11,6 +11,7 @@ interface Post {
     contentType: string;
     flattenedPath: string;
   };
+  thumbnail?: string;
   type: string;
   url: string;
 }
