@@ -19,14 +19,18 @@ const Post = defineDocumentType(() => ({
       type: 'string',
       required: true,
     },
-  },
-  computedFields: {
     url: {
       type: 'string',
-      resolve: (post) =>
-        post.title.replace(/[^a-zA-Z0-9가-힣]+/g, '-').toLowerCase(),
+      required: true,
     },
   },
+  // computedFields: {
+  //   url: {
+  //     type: 'string',
+  //     resolve: (post) =>
+  //       post.title.replace(/[^a-zA-Z0-9가-힣]+/g, '-').toLowerCase(),
+  //   },
+  // },
 }));
 
 const rehypeoptions = {
