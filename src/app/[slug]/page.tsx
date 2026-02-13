@@ -2,6 +2,7 @@ import Utterances from 'app/[slug]/utterances';
 import { SITE_URL, title } from 'constants/metadata';
 import { format, parseISO } from 'date-fns';
 import { latestPosts } from 'lib/contentlayer';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -19,37 +20,36 @@ export const generateStaticParams = async () =>
       slug: post.url,
     };
   });
-
 export const generateMetadata = ({
   params: { slug },
 }: {
   params: { slug: string };
-}) => {
+}): Metadata => {
   const decodedSlug = decodeURIComponent(slug);
   const currentPost = latestPosts.find(
     (post: Post) => post.url === decodedSlug,
   );
+  const postUrl = `${SITE_URL}/${currentPost?.url}`;
   return {
     metadataBase: new URL(SITE_URL),
     title: `${currentPost?.title} - ${title}`,
     description: currentPost?.description,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
     openGraph: {
       title: `${currentPost?.title} - ${title}`,
       description: currentPost?.description,
+      url: postUrl,
+      siteName: title,
       locale: 'ko_KR',
-      type: 'website',
-      // images: [
-      //   {
-      //     url: currentPost?.thumbnail,
-      //     width: 800,
-      //     height: 600,
-      //   },
-      //   {
-      //     url: currentPost?.thumbnail,
-      //     width: 1800,
-      //     height: 1600,
-      //   },
-      // ],
+      type: 'article',
+      publishedTime: currentPost?.date,
     },
   };
 };
