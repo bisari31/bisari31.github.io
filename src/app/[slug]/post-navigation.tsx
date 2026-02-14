@@ -24,7 +24,10 @@ export default function PostNavigation({
       {navigationItems.map(({ label, post }) => (
         <div key={post.url} className="flex items-center gap-1">
           <span>{label}:</span>
-          <Link href={`/${post.url}`} className="text-gray-400 underline">
+          <Link
+            href={`/${post.url}`}
+            className="text-text-link hover:text-text-link-hover underline"
+          >
             {post.title}
           </Link>
         </div>

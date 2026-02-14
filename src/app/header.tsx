@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 export default function Header() {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-800 bg-gray-900 px-4 sm:px-[37px]">
+    <header className="sticky top-0 z-50 border-b border-gray-800 bg-bg px-4 sm:px-[37px]">
       <div className="mx-auto flex h-14 max-w-3xl items-center">
         <div className="flex flex-1 items-center space-x-4">
           <Link

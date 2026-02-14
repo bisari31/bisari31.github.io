@@ -25,13 +25,6 @@ const Post = defineDocumentType(() => ({
     },
     thumbnail: { type: 'string', required: false },
   },
-  // computedFields: {
-  //   url: {
-  //     type: 'string',
-  //     resolve: (post) =>
-  //       post.title.replace(/[^a-zA-Z0-9가-힣]+/g, '-').toLowerCase(),
-  //   },
-  // },
 }));
 
 const rehypeoptions = {
