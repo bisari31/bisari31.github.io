@@ -5,7 +5,7 @@
 5:HL["https://bisari31.github.io/_next/static/media/d67e7444ea377c05-s.p.woff2",{"as":"font","type":"font/woff2"}]
 6:HL["https://bisari31.github.io/_next/static/css/bfa517ca33872b88.css",{"as":"style"}]
 0:[[["",{"children":[["slug","tailwind-css-tips","d"],{"children":["__PAGE__?{\"slug\":\"tailwind-css-tips\"}",{}]}]},"$undefined","$undefined",true],"$L7",[[["$","link","0",{"rel":"stylesheet","href":"https://bisari31.github.io/_next/static/css/bfa517ca33872b88.css","precedence":"next"}]],["$L8",["$","meta",null,{"name":"next-size-adjust"}]]]]]
-9:I{"id":"322","chunks":["414:static/chunks/414-20b3bd5160eb8091.js","74:static/chunks/74-594bb7f7c7727acf.js","185:static/chunks/app/layout-3733174c2b18c96f.js"],"name":"","async":false}
+9:I{"id":"322","chunks":["414:static/chunks/414-20b3bd5160eb8091.js","74:static/chunks/74-594bb7f7c7727acf.js","185:static/chunks/app/layout-759e5be43dfaeecf.js"],"name":"","async":false}
 a:I{"id":"9544","chunks":["272:static/chunks/webpack-7ce0dd0c7cc1559e.js","667:static/chunks/2443530c-3f577d13357de5ad.js","139:static/chunks/139-3c15d6903947ee00.js"],"name":"","async":false}
 b:I{"id":"99","chunks":["272:static/chunks/webpack-7ce0dd0c7cc1559e.js","667:static/chunks/2443530c-3f577d13357de5ad.js","139:static/chunks/139-3c15d6903947ee00.js"],"name":"","async":false}
 c:I{"id":"414","chunks":["414:static/chunks/414-20b3bd5160eb8091.js","42:static/chunks/app/[slug]/page-f28f094c7f1b5cbc.js"],"name":"","async":false}
