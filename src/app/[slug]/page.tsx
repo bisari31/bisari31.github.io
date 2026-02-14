@@ -5,10 +5,10 @@ import { SITE_URL, title } from 'constants/metadata';
 import { format, parseISO } from 'date-fns';
 import { latestPosts } from 'lib/contentlayer';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getMDXComponent } from 'next-contentlayer/hooks';
+import { Post } from 'contentlayer/generated';
 
 export const dynamicParams = false;
 

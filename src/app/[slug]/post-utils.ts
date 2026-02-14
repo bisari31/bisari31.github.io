@@ -1,3 +1,5 @@
+import { Post } from 'contentlayer/generated';
+
 type PostNavigation = {
   previousPost?: Post;
   nextPost?: Post;

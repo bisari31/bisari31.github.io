@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Post } from 'contentlayer/generated';
 
 type PostNavigationProps = {
   nextPost?: Post;
@@ -26,7 +27,7 @@ export default function PostNavigation({
           <span>{label}:</span>
           <Link
             href={`/${post.url}`}
-            className="text-text-link hover:text-text-link-hover underline"
+            className="text-text-link underline hover:text-text-link-hover"
           >
             {post.title}
           </Link>

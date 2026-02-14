@@ -1,7 +1,6 @@
 ---
 title: React 19.2 useEffectEvent
 date: 2026-02-10
-description: 2025년 10월 1일 React 19.2가 릴리즈됐다. 이 버전에서 새로운 훅이 하나 추가되었는데 useEffectEvent라는 훅이다. 오래된 클로저를 설명하는 대표적인 예시 코드다. `useEffect` 콜백에서 외부 상태 `count`를 참조하는데 버튼을 아무리 클릭해도 로그에는 0이 출력된다. 클로저는 생성 당시 외부 참조 변수를 기억하고 있는데 의존성 배열이 빈 배열이므로 콜백 함수는 단 한 번 생성된다. 그렇기에 항상 0을 기억할 수밖에 없다. `useEffect`의 의존성 배열에 `count`를 넣어주어야 오래된 클로저 이슈를 해결할 수 있다.
 url: react-useeffectevent
 thumbnail:
 ---
