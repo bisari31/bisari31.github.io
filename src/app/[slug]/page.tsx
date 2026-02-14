@@ -1,3 +1,5 @@
+import PostNavigation from 'app/[slug]/post-navigation';
+import { getPostNavigation } from 'app/[slug]/post-utils';
 import Utterances from 'app/[slug]/utterances';
 import { SITE_URL, title } from 'constants/metadata';
 import { format, parseISO } from 'date-fns';
@@ -7,12 +9,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getMDXComponent } from 'next-contentlayer/hooks';
-
-type PostsResult = {
-  previousPost?: Post;
-  nextPost?: Post;
-  currentPost?: Post;
-};
 
 export const dynamicParams = false;
 
@@ -70,17 +66,9 @@ export default function page({
   params: { slug: string };
 }) {
   const decodedSlug = decodeURIComponent(slug);
-
-  const { currentPost, nextPost, previousPost } = latestPosts.reduce(
-    (acc: PostsResult, cur, idx, src) => {
-      if (cur.url === decodedSlug) {
-        acc.currentPost = cur;
-        if (idx) acc.nextPost = src[idx - 1];
-        if (src.length - 1 > idx) acc.previousPost = src[idx + 1];
-      }
-      return acc;
-    },
-    {},
+  const { currentPost, nextPost, previousPost } = getPostNavigation(
+    latestPosts,
+    decodedSlug,
   );
 
   if (!currentPost) return notFound();
@@ -136,6 +124,7 @@ export default function page({
           }}
         />
       </div>
+      <PostNavigation nextPost={nextPost} previousPost={previousPost} />
       <Utterances />
     </article>
   );
