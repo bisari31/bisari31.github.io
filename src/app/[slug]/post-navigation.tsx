@@ -23,8 +23,8 @@ export default function PostNavigation({
   return (
     <div className="mt-20 flex flex-col gap-3">
       {navigationItems.map(({ label, post }) => (
-        <div key={post.url} className="flex items-center gap-1">
-          <span>{label}:</span>
+        <div key={post.url} className="flex items-start gap-1">
+          <span className="min-w-fit">{label}:</span>
           <Link
             href={`/${post.url}`}
             className="text-text-link underline hover:text-text-link-hover"
